@@ -4,6 +4,10 @@
 
 #include "mystring.hpp"
 
+// recently added
+#include <cstddef>
+#include <cstdint>
+
 my_str_t::my_str_t(size_t size, char initial) {
     size_m = size + 1;
     capacity_m = size + (16 - (size%16));
