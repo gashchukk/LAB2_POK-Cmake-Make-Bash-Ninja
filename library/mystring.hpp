@@ -7,6 +7,10 @@
 #include <iostream>
 #include <cstring>
 
+// recently added
+#include <cstddef>
+#include <cstdint>
+
 class my_str_t {
 private:
     char* data_m;
