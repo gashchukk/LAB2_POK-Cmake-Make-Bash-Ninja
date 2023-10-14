@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Нам потрібно обирати компілятор???
+# if [ "$TARGET_DEVICE" == "device1" ]; then
+#     compiler="g++"   # Compiler for device1
+# else
+#     compiler="clang++"   # Default compiler
+# fi
+
 # create dynamic lib
 g++ -std=c++11 -shared -fPIC -o library/mystring.dylib library/mystring.cpp
 if [ $? -eq 0 ]; then
@@ -20,9 +27,9 @@ else
 fi
 
 # ar is the archiver command. rcs are options for creating the archive, replacing existing files, and creating an index.
-#ar rcs library/mystring.a library/mystring.o mystring.dylib
-#rm library/mystring.o
-#rm library/mystring.a
+ar rcs library/mystring.a library/mystring.o mystring.dylib
+rm library/mystring.o
+rm library/mystring.a
 
 # example files (exe?)
 g++ -std=c++11 -o library/mystring library/mystring.dylib -Llibrary -lmystring
