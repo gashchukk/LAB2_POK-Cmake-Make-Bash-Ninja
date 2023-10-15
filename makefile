@@ -1,8 +1,11 @@
-ifeq ($(TARGET_DEVICE),device1)
-    CXX = g++   # Compiler for device1
-else
-    CXX = clang++   # Default compiler
-endif
+CXX = g++
+
+# make conditioning here
+# ifeq ($(TARGET_DEVICE),device1)
+#     CXX = g++   # Compiler for device1
+# else
+#     CXX = clang++   # Default compiler
+# endif
 
 all: hellomake
 
