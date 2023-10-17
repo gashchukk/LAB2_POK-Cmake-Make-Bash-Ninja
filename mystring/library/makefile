@@ -1,6 +1,6 @@
 CXX = g++
 
-# make conditioning here
+# Make conditioning here
 # ifeq ($(TARGET_DEVICE),device1)
 #     CXX = g++   # Compiler for device1
 # else
@@ -9,18 +9,15 @@ CXX = g++
 
 all: hellomake
 
-hellomake: main_file.o file1.o file2.o
-	$(CXX) main_file.o file1.o file2.o -o hellomake
+hellomake: main.o mystring.o
+	$(CXX) main.o mystring.o -o hellomake
 
-main_file.o: main_file.cpp file1.h file2.h
-	$(CXX) -c main_file.cpp
+main.o: ../examples/main.cpp mystring.hpp
+	$(CXX) -c ../examples/main.cpp
 
-file1.o: file1.cpp file1.h
-	$(CXX) -c file1.cpp
+mystring.o: mystring.cpp mystring.hpp
+	$(CXX) -c mystring.cpp
 
-file2.o: file2.cpp file2.h
-	$(CXX) -c file2.cpp
-
-.PHONY : clean
+.PHONY: clean
 clean:
 	rm -rf *.o hellomake
