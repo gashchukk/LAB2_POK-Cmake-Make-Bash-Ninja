@@ -26,8 +26,8 @@ else
 fi
 ##rm library/mystring.so
 #
-## create static lib
-#g++ -std=c++11 -c -o library/mystring.o library/mystring.cpp
+# create static lib
+g++ -std=c++11 -c -o library/mystring.o library/mystring.cpp
 if [ $? -eq 0 ]; then
     echo "Static library compiled successfully."
 else
@@ -42,9 +42,9 @@ fi
 #
 ## example files (exe?)
 #g++ -std=c++11 -o mystring/library/mystring library/mystring.so -Llibrary -lmystring
-if [ $? -eq 0 ]; then
-    echo "Examples compiled successfully."
-else
-    echo "Examples compilation failed."
-    exit 1
-fi
+#if [ $? -eq 0 ]; then
+#    echo "Examples compiled successfully."
+#else
+#    echo "Examples compilation failed."
+#    exit 1
+#fi
