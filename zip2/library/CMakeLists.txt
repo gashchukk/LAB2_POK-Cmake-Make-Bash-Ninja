@@ -1,28 +1,3 @@
-# SET(mystring_FILES
-# randtable.c
-# compress.c
-# decompress.c
-# bzlib_private.h
-# bzlib.h
-# blocksort.c
-# huffman.c
-# crctable.c
-# bzlib.c)
-
-
-# ADD_LIBRARY(mystring ${mystring_FILES})
-# # TARGET_INCLUDE_DIRECTORIES(mystring ${CMAKE_CURRENT_SOURCE_DIR})
-
-# SET(zip2_FILE bzip2.c bzip2recover.c)
-# ADD_EXECUTABLE(zip2_lib ${zip2_FILE})
-
-# # Find the BZIP2 package
-# find_package(BZip2 REQUIRED)
-
-# # Link the zip2 target with the BZIP2 library
-# target_link_libraries(zip2_lib PRIVATE BZip2::BZip2)
-
-
 SET(mystring_SOURCES
     randtable.c
     compress.c
@@ -32,6 +7,11 @@ SET(mystring_SOURCES
     crctable.c
     bzlib.c
 )
+
+# For visual studio compiler
+if(MSVC)
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+endif()
 
 # Create the dynamic/shared library
 ADD_LIBRARY(mystring_shared SHARED ${mystring_SOURCES})
