@@ -1,6 +1,6 @@
 <mark>Template for your README. Remove all unused parts and instructions</mark>
 
-# Lab work <mark>NUMBER</mark>: <mark>SHORT TOPIC</mark>
+# Lab work <mark>NUMBER 2</mark>: <mark>Supplement libraries with a compilation system</mark>
 Authors (team): <mark>Shumskui Dmytro, Hashchuk Bohdan, Arnauta Lisa</mark><br>
 Variant: <mark>VARIANT SHOULD BE HERE</mark>
 ## Prerequisites
