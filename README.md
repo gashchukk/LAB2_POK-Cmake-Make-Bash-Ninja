@@ -60,12 +60,15 @@ bash usage:
   just write in terminal command:
   
         bash compile.sh 
+
+cmake usage:
+  //write here
   
 </mark>
 
 ### Important!
 
-<mark>??? </mark>
+<mark>//write here</mark>
 
 ### Results
 
