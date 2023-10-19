@@ -1,6 +1,13 @@
 # Lab work <mark>NUMBER 2</mark>: <mark>Supplement libraries with a compilation system</mark>
-Authors (team): <mark>Shumskui Dmytro, Hashchuk Bohdan, Arnauta Lisa</mark><br>
-Variant: <mark>VARIANT SHOULD BE HERE</mark>
+Authors (team): <mark>Shumskyi Dmytro, Hashchuk Bohdan, Arnauta Lisa</mark><br>
+Variant: <mark>0</mark>
+
+## Work distribution
+  Shell: Arnauta
+  Make: Hashchuk
+  Cmake: Shumskyi
+  Ninja: Shumskyi
+
 ## Prerequisites
 
 <mark>
@@ -18,21 +25,28 @@ You need to install this before start:
 ### Compilation
 
 <mark>
-  for cmake:
-➜  mystring git:(cmake) ✗ cmake -B build
-  
-➜  mystring git:(cmake) ✗ cd build
+for cmake:
+- Compiles the same way both for mystring and zip2
+1) ➜ cmake -B build
+2) ➜ cd build
+3) ➜ cmake ..
+4) ➜ make
 
-build git:(cmake) ✗ cmake ..
+for make:
+- Compiles the same way both for mystring and zip2
+1) ➜ cd library
+2) ➜ make
+3) ➜ cd ..
+4) ➜ cd examples
+5) ➜ make
 
-➜  build git:(cmake) ✗ make
+for bash:
+- Compiles the same way both for mystring and zip2
+ ➜ bash compile.sh
 
-
-  for bash:
-
-  
-    bash compile.sh
-    
+for ninja:
+ ➜ cd mystring
+ ➜ ninja
 
 </mark>
 
@@ -54,31 +68,16 @@ make usage:
 
 bash usage:
 
-
   just write in terminal command:
-  
+
         bash compile.sh 
 
 cmake usage:
 
-  1. from directory lab2-make-cmake-shumskyi_hashchuk_arnauta go to mystring and then to libarary directory
-
-  2. open CMakeLists.txt
-
-  3. then write these commands:
-      ➜  mystring git:(cmake) ✗ cmake -B build
-
-      ➜  mystring git:(cmake) ✗ cd build
-
-      ➜  build git:(cmake) ✗ make
-
-      ➜  build git:(cmake) ✗ cmake ..
-
-      ➜  build git:(cmake) ✗ make -j8
-
-      ➜  build git:(cmake) ✗ cd examples 
-
-      ➜  examples git:(cmake) ✗ ./main 
+  1) Return to compile step
+  2)  ➜ cd build
+      ➜ cd examples/mystring
+      then run the file `./name.out`
   
 </mark>
 
