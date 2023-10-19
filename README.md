@@ -6,7 +6,15 @@ Variant: <mark>VARIANT SHOULD BE HERE</mark>
 ## Prerequisites
 
 <mark>
-none
+You need to install this before start:
+  
+  1. Install Cmake
+     
+  2. Install Make
+
+  3. Install bash, CLI shell
+
+  4. C++ compiler must be installed (obviously)
 </mark>
 
 ### Compilation
