@@ -14,12 +14,19 @@ none
 <mark>
   for cmake:
 ➜  mystring git:(cmake) ✗ cmake -B build
+  
 ➜  mystring git:(cmake) ✗ cd build
+
 build git:(cmake) ✗ cmake ..
+
 ➜  build git:(cmake) ✗ make
 
+
   for bash:
+
+  
     bash compile.sh
+    
 
 </mark>
 
@@ -28,10 +35,15 @@ build git:(cmake) ✗ cmake ..
 
 <mark>
 make usage:
+
   1. go to directory ./library
+
   2. open and compile makefile by command: make
+
   3. then go to directory ./examples
+
   4. by the analogy: open and compile makefile by command: make
+
   5. launching executable files
 
 bash usage:
