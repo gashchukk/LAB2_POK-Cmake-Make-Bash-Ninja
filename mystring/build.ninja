@@ -1,0 +1,35 @@
+# Specify compiler and compiler flags
+cflags = -std=c++11
+
+# Rule for compiling C++ source files
+rule cxx
+  command = g++ $cflags -c $in -o $out
+  description = Compiling $in
+
+# Rule for linking object files to create an executable
+rule link
+  command = g++ $in -o $out -L dynamic/so
+  description = Linking $out
+
+# Rule for creating the shared library
+rule sharedlib
+  command = g++ $cflags -shared $in -o $out
+  description = Creating shared library $out
+
+# Rule for creating the static library
+rule staticlib
+  command = ar rcs $out $in
+  description = Creating static library $out
+
+# Target for the shared library
+build dynamic/so/libmystring.so: sharedlib library/mystring.cpp
+  description = Building shared library $out
+
+# Target for the main executable using dynamic library
+build dynamic/obj/main.o: cxx examples/main.cpp
+build dynamic/so/main.out: link dynamic/obj/main.o dynamic/so/libmystring.so
+  description = Linking main.out
+
+# Target for the static library
+build static/obj/libmystring.a: staticlib library/mystring.cpp
+  description = Building static library $out
