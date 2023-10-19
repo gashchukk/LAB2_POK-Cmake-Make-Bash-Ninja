@@ -1,5 +1,5 @@
 SUBDIRS = examples library
-
+CC=gcc
 all: $(SUBDIRS)
 
 $(SUBDIRS):

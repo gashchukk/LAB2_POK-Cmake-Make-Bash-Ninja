@@ -1,8 +1,8 @@
 CXX = g++
 all: hellomake
 
-hellomake: ./main.cpp ./mystring.cpp
-	$(CXX) ./main.cpp -o hellomake
+hellomake: mystring.cpp
+	$(CXX) mystring.cpp -o hellomake
 
 .PHONY: clean
 
