@@ -47,7 +47,11 @@ make usage:
   5. launching executable files
 
 bash usage:
-  just write in terminal command: bash compile.sh 
+
+
+  just write in terminal command:
+  
+  bash compile.sh 
   
 </mark>
 
