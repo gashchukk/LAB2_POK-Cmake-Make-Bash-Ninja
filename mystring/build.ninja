@@ -1,0 +1,4 @@
+rule cc
+  command = g++ -std=c++17 $cflags -c $in -o $out
+
+build main.o: cc examples/main.cpp
