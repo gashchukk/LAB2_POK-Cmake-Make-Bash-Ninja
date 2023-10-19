@@ -8,12 +8,12 @@ rule cxx
 
 # Rule for linking object files to create an executable
 rule link
-  command = g++ $in -o $out -L dynamic/so -lmystring
+  command = g++ $in -o $out -L dynamic/so
   description = Linking $out
 
 # Rule for creating the shared library
 rule sharedlib
-  command = g++ -shared $in -o $out
+  command = g++ $cflags -shared $in -o $out
   description = Creating shared library $out
 
 # Rule for creating the static library
@@ -33,8 +33,3 @@ build dynamic/so/main.out: link dynamic/obj/main.o dynamic/so/libmystring.so
 # Target for the static library
 build static/obj/libmystring.a: staticlib library/mystring.cpp
   description = Building static library $out
-
-# Target for the main executable using static library
-build static/obj/main.o: cxx examples/main.cpp
-build static/obj/main.out: link static/obj/main.o static/obj/libmystring.a
-  description = Linking main.out
