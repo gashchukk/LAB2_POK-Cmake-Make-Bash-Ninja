@@ -1,24 +1,35 @@
+CXX = g++
+CXXFLAGS = -std=c++17 -O3 -Wall
 
-# Make conditioning here
-# ifeq ($(TARGET_DEVICE),device1)
-#     CXX = g++   # Compiler for device1
-# else
-#     CXX = clang++   # Default compiler
-# endif
-CFILES = bzip2.c bzip2recover.c
-OFILES = $(CFILES:.c=.o)
-INC_DIR=$(PWD)/../library
-CC = gcc
+SRC_DYNAMIC = bzip2.c
+SRC_STATIC = bzip2recover.c
 
-all: hellomake
+OBJDIR = obj
+EXECUTABLE_DYNAMIC = bzip2.out
+EXECUTABLE_STATIC = bzip2recover.out
 
-hellomake: $(OFILES)
-	$(CC)  $^ -o $@ -I$(INC_DIR) -L$(LIB) -lbz2
+LIBDIR_DYNAMIC = ../dynamic/so
+LIBDIR_STATIC = ../static/obj
 
-bzip2.o: bzip2.c
-	$(CC)  -c $< -o $@ -I$(INC_DIR)
-bzip2recover.o: bzip2recover.c
-	$(CC) -c $< -o $@ -I$(INC_DIR)
+LIB_OBJECTS_DYNAMIC = $(LIBDIR_DYNAMIC)/mystring.o
+LIB_OBJECTS_STATIC = $(LIBDIR_STATIC)/libmystring.a
+
+all: create_directory dynamic_program static_program
+
+dynamic_program: create_directory $(OBJDIR)/$(EXECUTABLE_DYNAMIC)
+
+static_program: create_directory $(OBJDIR)/$(EXECUTABLE_STATIC)
+
+$(OBJDIR)/$(EXECUTABLE_DYNAMIC): $(SRC_DYNAMIC)
+	$(CXX) $(CXXFLAGS) -o $@ $< -L $(LIBDIR_DYNAMIC) -lmystring
+
+$(OBJDIR)/$(EXECUTABLE_STATIC): $(SRC_STATIC)
+	$(CXX) $(CXXFLAGS) -o $@ $< -L $(LIBDIR_STATIC) -lmystring
+
+create_directory:
+	mkdir -p $(OBJDIR)
+
 .PHONY: clean
+
 clean:
-	rm -rf $(OFILES) hellomake
+	rm -rf $(OBJDIR)

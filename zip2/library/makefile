@@ -1,29 +1,37 @@
-# Makefile for building a C library
-
 CC = gcc
-# Directories
-SRC_DIR = library
+CFLAGS = -O3 -Wall
+LDFLAGS = -shared
+
+SRC = *.c
+OBJDIR = ../dynamic/obj
+SODIR = ../dynamic/so
+STATICOBJDIR = ../static/obj
+
+DYNAMIC_LIB = $(SODIR)/libmylibrary.so
+STATIC_LIB = $(STATICOBJDIR)/libmylibrary.a
 
 
-# Library name
-LIB_NAME = library
+all: mylibrary_dynamic mylibrary_static
 
-# Source and object files
-SRC_FILES = ./blocksort.c ./bzlib.c ./compress.c ./crctable.c ./decompress.c ./huffman.c ./randtable.c
-OBJ_FILES = ./blocksort.o ./bzlib.o ./compress.o ./crctable.o ./decompress.o ./huffman.o ./randtable.o
+mylibrary_dynamic: create_directory $(DYNAMIC_LIB)
+	$(CXX) $(LDFLAGS) -o $(SODIR)/libmylibrary.so $(OBJDIR)/mylibrary.o
 
-# Library target
-LIB_TARGET = ./lib$(LIB_NAME).a
+mylibrary_static: create_directory $(STATIC_LIB)
+	ar rcs $(STATICOBJDIR)/libmylibrary.a $(STATICOBJDIR)/mylibrary.o
 
-all: $(LIB_TARGET)
+$(DYNAMIC_LIB): $(wildcard $(SRC))
+	$(CC) $(CFLAGS) -fPIC -o $@ $<
 
-$(LIB_TARGET): $(OBJ_FILES)
-	ar rcs $@ $^
+$(STATIC_LIB): $(wildcard $(SRC))
+	$(CC) -c $(CFLAGS) $^
+	ar rcs $@ $(wildcard $(SRC))
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) -c $< -o $@
+.PHONY: clean
+
+create_directory:
+	mkdir -p $(OBJDIR)
+	mkdir -p $(SODIR)
+	mkdir -p $(STATICOBJDIR)
 
 clean:
-	rm -rf $(OBJ_DIR)/*.o $(LIB_TARGET)
-
-.PHONY: all clean
+	rm -rf ../dynamic ../static
