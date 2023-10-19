@@ -51,7 +51,7 @@ bash usage:
 
   just write in terminal command:
   
-  bash compile.sh 
+        bash compile.sh 
   
 </mark>
 
