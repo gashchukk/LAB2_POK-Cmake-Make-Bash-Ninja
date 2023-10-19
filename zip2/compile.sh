@@ -13,8 +13,8 @@ if [ "$which_lib" == "-dynamic" ]; then
         gcc -std=c17 -fPIC -c -O3 -o dynamic/obj/$(basename "$source_file" .c).o "$source_file"
     done
 
-    gcc -std=c17 -fPIC -c -O3 -o dynamic/obj/bzip2_obj.o examples/bzip2.c
-    gcc -std=c17 -fPIC -c -O3 -o dynamic/obj/bzip2recover_obj.o examples/bzip2recover.c
+    gcc -std=c17 -fPIC -c -O3 -o dynamic/obj/bzip2_obj.o -Ilibrary examples/bzip2.c
+    gcc -std=c17 -fPIC -c -O3 -o dynamic/obj/bzip2recover_obj.o -Ilibrary examples/bzip2recover.c
 
     # Link object files to create the shared library
     g++ -shared -o dynamic/so/libmylibrary.so dynamic/obj/blocksort.o dynamic/obj/compress.o dynamic/obj/decompress.o dynamic/obj/randtable.o dynamic/obj/bzlib.o dynamic/obj/crctable.o dynamic/obj/huffman.o
@@ -35,8 +35,8 @@ elif [ "$which_lib" == "-static" ]; then
         gcc -std=c17 -c -O3 -o static/obj/$(basename "$source_file" .c).o "$source_file"
     done
 
-    gcc -std=c17 -c -O3 -o static/obj/bzip2_obj.o examples/bzip2.c
-    gcc -std=c17 -c -O3 -o static/obj/bzip2recover_obj.o examples/bzip2recover.c
+    gcc -std=c17 -c -O3 -o static/obj/bzip2_obj.o -Ilibrary examples/bzip2.c
+    gcc -std=c17 -c -O3 -o static/obj/bzip2recover_obj.o -Ilibrary examples/bzip2recover.c
 
     # Create the static library (archive)
     ar rcs static/obj/libmylibrary.a static/obj/blocksort.o static/obj/compress.o static/obj/decompress.o static/obj/randtable.o static/obj/bzlib.o static/obj/crctable.o static/obj/huffman.o
