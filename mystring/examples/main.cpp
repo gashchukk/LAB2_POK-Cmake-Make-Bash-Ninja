@@ -5,6 +5,8 @@
 #include "mystring.hpp"
 
 int main(int argc, char* argv[]) {
+
+    my_str_t s1(5,'Hello');
     my_str_t str1(10, 'A');
     my_str_t str2("Hello");
     my_str_t str3(std::string("World"));
@@ -35,8 +37,6 @@ int main(int argc, char* argv[]) {
 
     my_str_t subStr1 = str1.substr(2, 5);
     my_str_t s(1, 'A');
-
-    my_str_t s1(5,'Hello');
     my_str_t s2(5,'world');
     s1.append(s2);
     s1.append('!');
