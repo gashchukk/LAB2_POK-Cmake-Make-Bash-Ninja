@@ -11,11 +11,8 @@ if(MSVC)
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 endif()
 
-# Find the BZIP2 package
-find_package(BZip2 REQUIRED)
-
 # Link the zip2_bzip2 target with the BZIP2 library
-target_link_libraries(zip2_bzip2 PRIVATE BZip2::BZip2)
+target_link_libraries(zip2_bzip2 PRIVATE bzip_static)
 
 # Link the zip2_bzip2recover target with the BZIP2 library
-target_link_libraries(zip2_bzip2recover PRIVATE BZip2::BZip2)
+target_link_libraries(zip2_bzip2recover PRIVATE bzip_shared)
