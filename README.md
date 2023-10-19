@@ -62,7 +62,25 @@ bash usage:
         bash compile.sh 
 
 cmake usage:
-  //write here
+
+  1. from directory lab2-make-cmake-shumskyi_hashchuk_arnauta go to mystring and then to libarary directory
+
+  2. open CMakeLists.txt
+
+  3. then write these commands:
+      ➜  mystring git:(cmake) ✗ cmake -B build
+
+      ➜  mystring git:(cmake) ✗ cd build
+
+      ➜  build git:(cmake) ✗ make
+
+      ➜  build git:(cmake) ✗ cmake ..
+
+      ➜  build git:(cmake) ✗ make -j8
+
+      ➜  build git:(cmake) ✗ cd examples 
+
+      ➜  examples git:(cmake) ✗ ./main 
   
 </mark>
 
