@@ -14,7 +14,7 @@ g++ -std=c++17 -fPIC -c examples/main.cpp -o obj/main.o
 g++ -shared obj/mystring.o obj/main.o -o lib/libmystring.so
 
 # Link obj to bin
-g++ -std=c++17 -L./lib -lmystring obj/main.o -o bin/myprogram_dynamic
+g++ -std=c++17 -L./lib -lmystring obj/main.o -o bin/myprogram_dynamic -Wl,-rpath,lib
 
 
 #### Static ####

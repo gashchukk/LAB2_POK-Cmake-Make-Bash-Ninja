@@ -1,35 +1,41 @@
-# Specify compiler and compiler flags
-cflags = -std=c++11
+cflags = -std=c++17
 
-# Rule for compiling C++ source files
 rule cxx
-  command = g++ $cflags -c $in -o $out
+  command = g++ $cflags -fPIC -I./library -c $in -o $out
   description = Compiling $in
 
-# Rule for linking object files to create an executable
 rule link
-  command = g++ $in -o $out -L dynamic/so
+  command = g++ $in -o $out -L ./lib
   description = Linking $out
 
-# Rule for creating the shared library
 rule sharedlib
   command = g++ $cflags -shared $in -o $out
   description = Creating shared library $out
 
-# Rule for creating the static library
 rule staticlib
   command = ar rcs $out $in
   description = Creating static library $out
 
-# Target for the shared library
-build dynamic/so/libmystring.so: sharedlib library/mystring.cpp
+# mystring.cpp o
+build obj/mystring.o: cxx library/mystring.cpp
+  description = Compiling $in
+
+# mystring.cpp so
+build lib/libmystring.so: sharedlib library/mystring.cpp
   description = Building shared library $out
 
-# Target for the main executable using dynamic library
-build dynamic/obj/main.o: cxx examples/main.cpp
-build dynamic/so/main.out: link dynamic/obj/main.o dynamic/so/libmystring.so
-  description = Linking main.out
+# main.cpp o
+build obj/main.o: cxx examples/main.cpp
+  description = Compiling $in
 
-# Target for the static library
-build static/obj/libmystring.a: staticlib library/mystring.cpp
+# mystring.o a
+build lib/libmystring.a: staticlib obj/mystring.o
   description = Building static library $out
+
+# static bin
+build bin/myprogram_static: link obj/main.o lib/libmystring.a
+  description = Linking myprogram_static
+
+# dynamic bin
+build bin/myprogram_dynamic: link obj/main.o lib/libmystring.so
+  description = Linking myprogram_dynamic
