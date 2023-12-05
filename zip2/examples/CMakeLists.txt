@@ -1,18 +1,26 @@
-# Create the executable for bzip2.c
-SET(zip2_FILE1 bzip2.c)
-ADD_EXECUTABLE(zip2_bzip2 ${zip2_FILE1})
+cmake_minimum_required(VERSION 3.17)
+project(zip2_project)
 
-# Create the executable for bzip2recover.c
-SET(zip2_FILE2 bzip2recover.c)
-ADD_EXECUTABLE(zip2_bzip2recover ${zip2_FILE2})
+set(CMAKE_CXX_STANDARD 17)
+
+set(zip2_FILE1 bzip2.c)
+set(zip2_FILE2 bzip2recover.c)
 
 # For visual studio compiler
 if(MSVC)
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 endif()
 
-# Link the zip2_bzip2 target with the BZIP2 library
-target_link_libraries(zip2_bzip2 PRIVATE bzip_static)
+# zip2_FILE1
+add_executable(zip2_bzip2_static ${zip2_FILE1})
+target_link_libraries(zip2_bzip2_static bzip_static)
 
-# Link the zip2_bzip2recover target with the BZIP2 library
-target_link_libraries(zip2_bzip2recover PRIVATE bzip_shared)
+add_executable(zip2_bzip2_dynamic ${zip2_FILE1})
+target_link_libraries(zip2_bzip2_dynamic bzip_dynamic)
+
+# zip2_FILE2
+add_executable(zip2_bzip2recover_static ${zip2_FILE2})
+target_link_libraries(zip2_bzip2recover_static bzip_static)
+
+add_executable(zip2_bzip2recover_dynamic ${zip2_FILE2})
+target_link_libraries(zip2_bzip2recover_dynamic bzip_dynamic)

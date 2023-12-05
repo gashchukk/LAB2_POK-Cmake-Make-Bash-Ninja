@@ -1,3 +1,8 @@
+cmake_minimum_required(VERSION 3.17)
+project(zip2_project)
+
+set(CMAKE_CXX_STANDARD 17)
+
 SET(bzip_SOURCES
     randtable.c
     compress.c
@@ -13,12 +18,6 @@ if(MSVC)
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 endif()
 
-# Create the dynamic/shared library
-ADD_LIBRARY(bzip_shared SHARED ${bzip_SOURCES})
-
-# Create the static library
+ADD_LIBRARY(bzip_dynamic SHARED ${bzip_SOURCES})
 ADD_LIBRARY(bzip_static STATIC ${bzip_SOURCES})
 
-# Optionally set some properties for the libraries if needed
-SET_TARGET_PROPERTIES(bzip_shared PROPERTIES OUTPUT_NAME bzip)
-SET_TARGET_PROPERTIES(bzip_static PROPERTIES OUTPUT_NAME bzip)
