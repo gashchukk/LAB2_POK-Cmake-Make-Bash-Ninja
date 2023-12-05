@@ -1,32 +1,27 @@
 CXX = g++
-CXXFLAGS = -std=c++17 -O3 -Wall
-LDFLAGS = -shared
+SRC_DIR = library
+OBJ_DIR = ../obj
+LIB_DIR = ../lib
 
-SRC = mystring.cpp
-OBJDIR = ../dynamic/obj
-SODIR = ../dynamic/so
-STATICOBJDIR = ../static/obj
+LIB_NAME = libmystring
+DYNAMIC_LIB = $(LIB_DIR)/$(LIB_NAME).so
+STATIC_LIB = $(LIB_DIR)/$(LIB_NAME).a
 
-all: mystring_dynamic mystring_static
+.PHONY: all clean
 
-mystring_dynamic: create_directory $(OBJDIR)/mystring.o
-	$(CXX) $(LDFLAGS) -o $(SODIR)/libmystring.so $(OBJDIR)/mystring.o
+all: create_dirs create_dynamic_lib create_static_lib
 
-mystring_static: create_directory $(STATICOBJDIR)/mystring.o
-	ar rcs $(STATICOBJDIR)/libmystring.a $(STATICOBJDIR)/mystring.o
+create_dirs:
+	mkdir -p $(OBJ_DIR)
+	mkdir -p $(LIB_DIR)
 
-$(OBJDIR)/mystring.o: $(SRC)
-	$(CXX) $(CXXFLAGS) -fPIC -c $< -o $@
+create_dynamic_lib: mystring.cpp
+	$(CXX) -std=c++17 -fPIC -c $< -o $(OBJ_DIR)/mystring.o
+	$(CXX) -shared $(OBJ_DIR)/mystring.o -o $(DYNAMIC_LIB)
 
-$(STATICOBJDIR)/mystring.o: $(SRC)
-	$(CXX) $(CXXFLAGS) -c $< -o $@
-
-create_directory:
-	mkdir -p $(OBJDIR)
-	mkdir -p $(SODIR)
-	mkdir -p $(STATICOBJDIR)
-
-.PHONY: clean
+create_static_lib: mystring.cpp
+	$(CXX) -std=c++17 -c $< -o $(OBJ_DIR)/mystring.o
+	ar rcs $(STATIC_LIB) $(OBJ_DIR)/mystring.o
 
 clean:
-	rm -rf ../dynamic ../static
+	rm -rf $(OBJ_DIR) $(LIB_DIR)
