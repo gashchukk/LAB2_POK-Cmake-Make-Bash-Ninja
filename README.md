@@ -120,13 +120,3 @@ In the static library we just create an executable file which is linked to the l
 <mark>
 As Additional task was implenemted `Ninja`
 <mark>
-
-# ATTENTION!
-  
-Additional tasks not listed in the previous paragraph would not be graded.
-
-Be sure to provide a complete list of authors.
-
-###
-string include (make) 
-rpath string (shell) +
