@@ -1,41 +1,25 @@
 #!/bin/bash
 
-which_lib="$1"
-to_save="$2"
+#### Dynamic ####
+# Create an obj directories if they don't exist
+mkdir -p obj
+mkdir -p bin
+mkdir -p lib
 
-if [ "$which_lib" == "-dynamic" ]; then
-    # Create an obj directories if they don't exist
-    mkdir -p dynamic
-    mkdir -p dynamic/obj
-    mkdir -p dynamic/so
+# Compile source files into object files
+g++ -std=c++17 -fPIC -c library/mystring.cpp -o obj/mystring.o
+g++ -std=c++17 -fPIC -c examples/main.cpp -o obj/main.o
 
-    # Compile source files into object files with shared library flags
-    g++ -std=c++17 -fPIC -shared library/mystring.cpp -o dynamic/obj/mystring.o -c -O3
-    g++ -std=c++17 -fPIC -shared examples/main.cpp -o dynamic/obj/main.o -c -O3
+# Create dynamic lib
+g++ -shared obj/mystring.o obj/main.o -o lib/libmystring.so
 
-    # Link object files to create the shared library
-    g++ -shared -o dynamic/so/libmystring.so dynamic/obj/mystring.o
-    g++ -o main.out dynamic/obj/main.o -lmystring -L dynamic/so
+# Link obj to bin
+g++ -std=c++17 -L./lib -lmystring obj/main.o -o bin/myprogram_dynamic -Wl,-rpath,lib
 
-    if [ "$to_save" == "-del" ]; then
-        rm -rf dynamic
-    fi
-elif [ "$which_lib" == "-static" ]; then
-    # Create an obj directory if it doesn't exist
-    mkdir -p static
-    mkdir -p static/obj
 
-    # Compile source files into object files
-    g++ -std=c++17 library/mystring.cpp -o static/obj/mystring.o -c -O3
-    g++ -std=c++17 examples/main.cpp -o static/obj/main.o -c -O3
+#### Static ####
+# Create the static library (archive)
+ar rcs lib/libmystring.a obj/mystring.o obj/main.o
 
-    # Create the static library (archive)
-    ar rcs static/obj/libmystring.a static/obj/mystring.o
-
-    # Link the program with the static library
-    g++ -o a.out static/obj/main.o -Lobj -lmystring -L static/obj
-
-    if [ "$to_save" == "-del" ]; then
-        rm -rf static
-    fi
-fi
+# Create the Executable Linked with the Static Library
+g++ -std=c++17 -L./lib -lmystring obj/main.o -o bin/myprogram_static

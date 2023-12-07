@@ -1,35 +1,39 @@
-CXX = g++
-CXXFLAGS = -std=c++17 -O3 -Wall
+#### Dynamic ####
 
-SRC_DYNAMIC = bzip2.c
-SRC_STATIC = bzip2recover.c
+SRC_DIR = ../library
+EXAMPLES_DIR = ./
+OBJ_DIR = ../obj
+LIB_DIR = ../lib
+BIN_DIR = ../bin
 
-OBJDIR = obj
-EXECUTABLE_DYNAMIC = bzip2.out
-EXECUTABLE_STATIC = bzip2recover.out
+# Compile flags
+CFLAGS = -std=c17 -fPIC
+LDFLAGS = -shared
 
-LIBDIR_DYNAMIC = ../dynamic/so
-LIBDIR_STATIC = ../static/obj
+MAIN_SRC1 = bzip2.c
+MAIN_SRC2 = bzip2recover.c
 
-LIB_OBJECTS_DYNAMIC = $(LIBDIR_DYNAMIC)/mystring.o
-LIB_OBJECTS_STATIC = $(LIBDIR_STATIC)/libmystring.a
+all: create_dirs create_main_obj link_dynamic link_static
 
-all: create_directory dynamic_program static_program
+create_dirs:
+	mkdir -p $(BIN_DIR)
+	mkdir -p $(LIB_DIR)
+	mkdir -p $(OBJ_DIR)
 
-dynamic_program: create_directory $(OBJDIR)/$(EXECUTABLE_DYNAMIC)
+# -I$(SRC_DIR) - tells where the compiler should look for header files
+create_main_obj:
+	gcc $(CFLAGS) -c -o $(OBJ_DIR)/bzip2_obj.o -I$(SRC_DIR) bzip2.c
+	gcc $(CFLAGS) -c -o $(OBJ_DIR)/bzip2recover_obj.o -I$(SRC_DIR) bzip2recover.c
 
-static_program: create_directory $(OBJDIR)/$(EXECUTABLE_STATIC)
+link_dynamic: create_main_obj
+	g++ -o $(BIN_DIR)/bzip2_obj_dynamic $(OBJ_DIR)/bzip2_obj.o -L $(LIB_DIR) -lmylibrary -Wl,-rpath,lib
+	g++ -o $(BIN_DIR)/bzip2recover_obj_dynamic $(OBJ_DIR)/bzip2recover_obj.o -L $(LIB_DIR) -lmylibrary -Wl,-rpath,lib
 
-$(OBJDIR)/$(EXECUTABLE_DYNAMIC): $(SRC_DYNAMIC)
-	$(CXX) $(CXXFLAGS) -o $@ $< -L $(LIBDIR_DYNAMIC) -lmystring
-
-$(OBJDIR)/$(EXECUTABLE_STATIC): $(SRC_STATIC)
-	$(CXX) $(CXXFLAGS) -o $@ $< -L $(LIBDIR_STATIC) -lmystring
-
-create_directory:
-	mkdir -p $(OBJDIR)
+link_static: create_main_obj
+	g++ -o $(BIN_DIR)/bzip2recover_obj_static $(OBJ_DIR)/bzip2recover_obj.o -L $(LIB_DIR) -lmylibrary_s
+	g++ -o $(BIN_DIR)/bzip2_obj_static $(OBJ_DIR)/bzip2_obj.o -L $(LIB_DIR) -lmylibrary_s
 
 .PHONY: clean
 
 clean:
-	rm -rf $(OBJDIR)
+	rm -rf $(OBJ_DIR) $(LIB_DIR) $(BIN_DIR)

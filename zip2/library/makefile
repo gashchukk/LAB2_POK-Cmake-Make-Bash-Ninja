@@ -1,37 +1,34 @@
-CC = gcc
-CFLAGS = -O3 -Wall
+SRC_DIR = ./
+EXAMPLES_DIR = examples
+OBJ_DIR = ../obj
+LIB_DIR = ../lib
+BIN_DIR = ../bin
+
+# Compile flags
+CFLAGS = -std=c17 -fPIC
 LDFLAGS = -shared
 
-SRC = *.c
-OBJDIR = ../dynamic/obj
-SODIR = ../dynamic/so
-STATICOBJDIR = ../static/obj
+MAIN_SRC1 = bzip2.c
+MAIN_SRC2 = bzip2recover.c
 
-DYNAMIC_LIB = $(SODIR)/libmylibrary.so
-STATIC_LIB = $(STATICOBJDIR)/libmylibrary.a
+all: create_dirs create_objects dynamic_library static_library
 
+create_dirs:
+	mkdir -p $(OBJ_DIR)
+	mkdir -p $(LIB_DIR)
 
-all: mylibrary_dynamic mylibrary_static
+create_objects: create_dirs
+	for source_file in $(SRC_DIR)/*.c; do \
+		gcc $(CFLAGS) -c -o $(OBJ_DIR)/$$(basename "$$source_file" .c).o "$$source_file"; \
+	done
 
-mylibrary_dynamic: create_directory $(DYNAMIC_LIB)
-	$(CXX) $(LDFLAGS) -o $(SODIR)/libmylibrary.so $(OBJDIR)/mylibrary.o
+dynamic_library: create_objects
+	g++ $(LDFLAGS) -o $(LIB_DIR)/libmylibrary.so $(OBJ_DIR)/*.o
 
-mylibrary_static: create_directory $(STATIC_LIB)
-	ar rcs $(STATICOBJDIR)/libmylibrary.a $(STATICOBJDIR)/mylibrary.o
-
-$(DYNAMIC_LIB): $(wildcard $(SRC))
-	$(CC) $(CFLAGS) -fPIC -o $@ $<
-
-$(STATIC_LIB): $(wildcard $(SRC))
-	$(CC) -c $(CFLAGS) $^
-	ar rcs $@ $(wildcard $(SRC))
+static_library: create_objects
+	ar rcs $(LIB_DIR)/libmylibrary_s.a $(OBJ_DIR)/*.o
 
 .PHONY: clean
 
-create_directory:
-	mkdir -p $(OBJDIR)
-	mkdir -p $(SODIR)
-	mkdir -p $(STATICOBJDIR)
-
 clean:
-	rm -rf ../dynamic ../static
+	rm -rf $(OBJ_DIR) $(LIB_DIR) $(BIN_DIR)
