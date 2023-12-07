@@ -9,7 +9,7 @@ rule link
   description = Linking $out
 
 rule sharedlib
-  command = g++ $cflags -shared $in -o $out
+  command = g++ $cflags -fPIC -shared $in -o $out
   description = Creating shared library $out
 
 rule staticlib
