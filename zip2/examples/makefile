@@ -26,8 +26,8 @@ create_main_obj:
 	gcc $(CFLAGS) -c -o $(OBJ_DIR)/bzip2recover_obj.o -I$(SRC_DIR) bzip2recover.c
 
 link_dynamic: create_main_obj
-	g++ -o $(BIN_DIR)/bzip2_obj_dynamic $(OBJ_DIR)/bzip2_obj.o -L $(LIB_DIR) -lmylibrary -Wl,-rpath,lib
-	g++ -o $(BIN_DIR)/bzip2recover_obj_dynamic $(OBJ_DIR)/bzip2recover_obj.o -L $(LIB_DIR) -lmylibrary -Wl,-rpath,lib
+	g++ -o $(BIN_DIR)/bzip2_obj_dynamic $(OBJ_DIR)/bzip2_obj.o -L $(LIB_DIR) -lmylibrary -Wl,-rpath,$(LIB_DIR)
+	g++ -o $(BIN_DIR)/bzip2recover_obj_dynamic $(OBJ_DIR)/bzip2recover_obj.o -L $(LIB_DIR) -lmylibrary -Wl,-rpath,$(LIB_DIR)
 
 link_static: create_main_obj
 	g++ -o $(BIN_DIR)/bzip2recover_obj_static $(OBJ_DIR)/bzip2recover_obj.o -L $(LIB_DIR) -lmylibrary_s

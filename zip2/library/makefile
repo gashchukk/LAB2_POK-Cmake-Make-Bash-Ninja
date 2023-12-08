@@ -23,7 +23,7 @@ create_objects: create_dirs
 	done
 
 dynamic_library: create_objects
-	g++ $(LDFLAGS) -o $(LIB_DIR)/libmylibrary.so $(OBJ_DIR)/*.o
+	g++ $(LDFLAGS) -fPIC -o $(LIB_DIR)/libmylibrary.so $(OBJ_DIR)/*.o
 
 static_library: create_objects
 	ar rcs $(LIB_DIR)/libmylibrary_s.a $(OBJ_DIR)/*.o

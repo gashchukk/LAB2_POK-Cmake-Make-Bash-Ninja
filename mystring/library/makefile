@@ -1,5 +1,6 @@
 CXX = g++
 SRC_DIR = library
+BIN_DIR = ../bin
 OBJ_DIR = ../obj
 LIB_DIR = ../lib
 
@@ -17,11 +18,11 @@ create_dirs:
 
 create_dynamic_lib: mystring.cpp
 	$(CXX) -std=c++17 -fPIC -c $< -o $(OBJ_DIR)/mystring.o
-	$(CXX) -shared $(OBJ_DIR)/mystring.o -o $(DYNAMIC_LIB)
+	$(CXX) -shared -fPIC $(OBJ_DIR)/mystring.o -o $(DYNAMIC_LIB)
 
 create_static_lib: mystring.cpp
 	$(CXX) -std=c++17 -c $< -o $(OBJ_DIR)/mystring.o
 	ar rcs $(STATIC_LIB) $(OBJ_DIR)/mystring.o
 
 clean:
-	rm -rf $(OBJ_DIR) $(LIB_DIR)
+	rm -rf $(OBJ_DIR) $(LIB_DIR) $(BIN_DIR)
