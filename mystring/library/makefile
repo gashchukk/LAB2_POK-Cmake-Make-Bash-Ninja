@@ -25,4 +25,4 @@ create_static_lib: mystring.cpp
 	ar rcs $(STATIC_LIB) $(OBJ_DIR)/mystring.o
 
 clean:
-	rm -rf $(OBJ_DIR) $(LIB_DIR) $(BIN_DIR)
+	rm -rf $(OBJ_DIR) $(LIB_DIR)

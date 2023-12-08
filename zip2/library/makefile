@@ -31,4 +31,4 @@ static_library: create_objects
 .PHONY: clean
 
 clean:
-	rm -rf $(OBJ_DIR) $(LIB_DIR) $(BIN_DIR)
+	rm -rf $(OBJ_DIR) $(LIB_DIR)

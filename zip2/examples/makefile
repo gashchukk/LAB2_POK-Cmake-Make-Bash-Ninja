@@ -17,8 +17,6 @@ all: create_dirs create_main_obj link_dynamic link_static
 
 create_dirs:
 	mkdir -p $(BIN_DIR)
-	mkdir -p $(LIB_DIR)
-	mkdir -p $(OBJ_DIR)
 
 # -I$(SRC_DIR) - tells where the compiler should look for header files
 create_main_obj:
@@ -36,4 +34,4 @@ link_static: create_main_obj
 .PHONY: clean
 
 clean:
-	rm -rf $(OBJ_DIR) $(LIB_DIR) $(BIN_DIR)
+	rm -rf $(BIN_DIR)
