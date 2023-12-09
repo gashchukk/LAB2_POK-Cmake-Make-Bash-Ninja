@@ -12,7 +12,9 @@ if(MSVC)
 endif()
 
 add_executable(myprogram_dynamic ${MAIN_SRC})
+target_include_directories(myprogram_dynamic PRIVATE ../library/mystring.hpp)
 target_link_libraries(myprogram_dynamic ${LIB_NAME}_dynamic)
 
 add_executable(myprogram_static ${MAIN_SRC})
+target_include_directories(myprogram_static PRIVATE ../library/mystring.hpp)
 target_link_libraries(myprogram_static ${LIB_NAME}_static)
