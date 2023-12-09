@@ -1,4 +1,5 @@
 CXX = g++
+CXX_flags ?= -O3
 SRC_DIR = library
 BIN_DIR = ../bin
 OBJ_DIR = ../obj
@@ -17,11 +18,11 @@ create_dirs:
 	mkdir -p $(LIB_DIR)
 
 create_dynamic_lib: mystring.cpp
-	$(CXX) -std=c++17 -fPIC -c $< -o $(OBJ_DIR)/mystring.o
+	$(CXX) -std=c++17 -fPIC -c $< -o $(OBJ_DIR)/mystring.o $(CXX_flags)
 	$(CXX) -shared -fPIC $(OBJ_DIR)/mystring.o -o $(DYNAMIC_LIB)
 
 create_static_lib: mystring.cpp
-	$(CXX) -std=c++17 -c $< -o $(OBJ_DIR)/mystring.o
+	$(CXX) -std=c++17 -c $< -o $(OBJ_DIR)/mystring.o $(CXX_flags)
 	ar rcs $(STATIC_LIB) $(OBJ_DIR)/mystring.o
 
 clean:

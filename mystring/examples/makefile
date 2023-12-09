@@ -1,4 +1,5 @@
 CXX = g++
+CXX_flags ?= -O3
 OBJ_DIR = ../obj
 BIN_DIR = ../bin
 LIB_DIR = ../lib
@@ -17,7 +18,7 @@ create_dirs:
 	mkdir -p $(BIN_DIR)
 
 create_main_obj: $(MAIN_SRC)
-	$(CXX) -std=c++17 -fPIC -c $(MAIN_SRC) -o $(MAIN_OBJ) -I$(SRC_DIR)
+	$(CXX) -std=c++17 -fPIC -c $(MAIN_SRC) -o $(MAIN_OBJ) -I$(SRC_DIR) $(CXX_flags)
 
 link_dynamic: create_main_obj
 	$(CXX) -std=c++17 -Wl,-rpath,$(LIB_DIR) $(MAIN_OBJ) -o $(BIN_DIR)/myprogram_dynamic -I$(SRC_DIR) -L$(LIB_DIR) -l$(LIB_NAME)

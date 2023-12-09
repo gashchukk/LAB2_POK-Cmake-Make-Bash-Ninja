@@ -1,5 +1,5 @@
 #### Dynamic ####
-
+CXX_flags ?= -O3
 SRC_DIR = ../library
 EXAMPLES_DIR = ./
 OBJ_DIR = ../obj
@@ -20,8 +20,8 @@ create_dirs:
 
 # -I$(SRC_DIR) - tells where the compiler should look for header files
 create_main_obj:
-	gcc $(CFLAGS) -c -o $(OBJ_DIR)/bzip2_obj.o -I$(SRC_DIR) bzip2.c
-	gcc $(CFLAGS) -c -o $(OBJ_DIR)/bzip2recover_obj.o -I$(SRC_DIR) bzip2recover.c
+	gcc $(CFLAGS) -c -o $(OBJ_DIR)/bzip2_obj.o -I$(SRC_DIR) bzip2.c $(CXX_flags)
+	gcc $(CFLAGS) -c -o $(OBJ_DIR)/bzip2recover_obj.o -I$(SRC_DIR) bzip2recover.c $(CXX_flags)
 
 link_dynamic: create_main_obj
 	g++ -o $(BIN_DIR)/bzip2_obj_dynamic $(OBJ_DIR)/bzip2_obj.o -L $(LIB_DIR) -lmylibrary -Wl,-rpath,$(LIB_DIR)

@@ -3,6 +3,7 @@ EXAMPLES_DIR = examples
 OBJ_DIR = ../obj
 LIB_DIR = ../lib
 BIN_DIR = ../bin
+CXX_flags ?= -O3
 
 # Compile flags
 CFLAGS = -std=c17 -fPIC
@@ -19,7 +20,7 @@ create_dirs:
 
 create_objects: create_dirs
 	for source_file in $(SRC_DIR)/*.c; do \
-		gcc $(CFLAGS) -c -o $(OBJ_DIR)/$$(basename "$$source_file" .c).o "$$source_file"; \
+		gcc $(CXX_flags) $(CFLAGS) -c -o $(OBJ_DIR)/$$(basename "$$source_file" .c).o "$$source_file"; \
 	done
 
 dynamic_library: create_objects
